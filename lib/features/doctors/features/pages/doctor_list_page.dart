@@ -11,8 +11,6 @@ class DoctorListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<DoctorController>();
-
     return Scaffold(
       appBar: CommonAppBar(
         title: AppStrings.doctors,
@@ -24,22 +22,24 @@ class DoctorListPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Obx(() {
-        return AppLoader(
-          isLoading: controller.isLoading.value,
-          child: controller.filteredDoctors.isEmpty
-              ? const Center(child: Text("No doctors found"))
-              : ListView.separated(
-                  padding: const EdgeInsets.all(8),
-                  separatorBuilder: (_, __) => const Divider(),
-                  itemCount: controller.filteredDoctors.length,
-                  itemBuilder: (context, index) {
-                    final doctor = controller.filteredDoctors[index];
-                    return DoctorListItem(doctor: doctor);
-                  },
-                ),
-        );
-      }),
+      body: GetBuilder<DoctorController>(
+        builder: (controller) {
+          return AppLoader(
+            isLoading: controller.isLoading,
+            child: controller.filteredDoctors.isEmpty
+                ? const Center(child: Text("No doctors found"))
+                : ListView.separated(
+                    padding: const EdgeInsets.all(8),
+                    separatorBuilder: (_, __) => const Divider(),
+                    itemCount: controller.filteredDoctors.length,
+                    itemBuilder: (context, index) {
+                      final doctor = controller.filteredDoctors[index];
+                      return DoctorListItem(doctor: doctor);
+                    },
+                  ),
+          );
+        },
+      ),
     );
   }
 }

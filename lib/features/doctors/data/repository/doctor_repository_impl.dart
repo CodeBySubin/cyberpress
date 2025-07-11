@@ -1,8 +1,7 @@
 
-
 import 'package:healthsync/features/doctors/data/datasources/doctor_data_source.dart';
 import 'package:healthsync/features/doctors/domain/entities/doctors.dart';
-import 'package:healthsync/features/doctors/domain/repository/dotor_repository.dart';
+import 'package:healthsync/features/doctors/domain/repository/doctor_repository.dart';
 
 class DoctorRepositoryImpl implements DoctorRepository {
   final DoctorRemoteDataSource remoteDataSource;
@@ -12,5 +11,10 @@ class DoctorRepositoryImpl implements DoctorRepository {
   @override
   Future<List<Doctor>> getDoctors() async {
     return await remoteDataSource.getDoctors();
+  }
+
+  @override
+  Future<Doctor> getDoctorById(String id) async {
+    return await remoteDataSource.getDoctorById(id);
   }
 }

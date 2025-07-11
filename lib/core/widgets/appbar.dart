@@ -3,7 +3,7 @@ import 'package:healthsync/core/constants/constants.dart';
 import 'package:healthsync/core/theme/app_text_styles.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
   final List<Widget>? actions;
   final bool centerTitle;
   final bool showBack;
@@ -11,7 +11,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CommonAppBar({
     super.key,
-    required this.title,
+     this.title,
     this.actions,
     this.centerTitle = true,
     this.showBack = true,
@@ -22,7 +22,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.primaryColor,
-      title: Text(title, style: AppTextStyles.appbarHeading),
+      title: Text(title??"", style: AppTextStyles.appbarHeading),
       centerTitle: centerTitle,
       leading:
           showBack

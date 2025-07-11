@@ -22,6 +22,9 @@ class AppStrings {
   static const String phone = "Phone";
   static const String notes = "Notes";
   static const String genaratePdfAndSend = "GENERATE PDF / SEND";
+  static const String location = "Location:";
+    static const String lowerTime = "Time:";
+
 
   //////////////Pdf//////////////////
   static const String pdfList = "PDF LIST";

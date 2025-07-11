@@ -2,12 +2,12 @@ import 'package:healthsync/features/doctors/domain/entities/doctors.dart';
 
 import '../repository/doctor_repository.dart';
 
-class GetDoctors {
+class GetDoctorById {
   final DoctorRepository repository;
 
-  GetDoctors(this.repository);
+  GetDoctorById(this.repository);
 
-  Future<List<Doctor>> call() async {
-    return await repository.getDoctors();
+  Future<Doctor> call(String id) async {
+    return await repository.getDoctorById(id);
   }
 }

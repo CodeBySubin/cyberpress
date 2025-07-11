@@ -26,6 +26,12 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     fontSize: 12,
   );
+    static const TextStyle mediumGreyText = TextStyle(
+    color: AppColors.textgrey,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
+  );
 
   static const TextStyle buttonWhiteText = TextStyle(
     color: AppColors.whiteColor,

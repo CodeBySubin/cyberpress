@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:healthsync/core/network/network.dart';
 import 'package:healthsync/features/doctors/domain/entities/doctors.dart';
 import 'package:healthsync/features/doctors/domain/usecase/get_doctors.dart';
 
@@ -7,17 +9,14 @@ class DoctorController extends GetxController {
 
   DoctorController(this._getDoctors);
 
-  final RxList<Doctor> _allDoctors = <Doctor>[].obs;
-  final RxList<Doctor> filteredDoctors = <Doctor>[].obs;
-  final RxBool isLoading = false.obs;
+  List<Doctor> _allDoctors = [];
+  List<Doctor> filteredDoctors = [];
+  bool isLoading = false;
 
-  final RxInt selectedGenderIndex = (-1).obs;
-  final RxInt selectedTimeSlotIndex = (-1).obs;
+  int selectedGenderIndex = -1;
+  int selectedTimeSlotIndex = -1;
 
-  final List<String> timeSlots = [
-    "10:00am - 04:00pm",
-    "09:00am - 01:00pm",
-  ];
+  final List<String> timeSlots = ["10:00am - 04:00pm", "09:00am - 01:00pm"];
 
   @override
   void onInit() {
@@ -26,37 +25,46 @@ class DoctorController extends GetxController {
   }
 
   Future<void> _loadDoctors() async {
-    isLoading.value = true;
+    isLoading = true;
+    update();
     try {
       final doctors = await _getDoctors();
-      _allDoctors.assignAll(doctors);
-      filteredDoctors.assignAll(doctors);
+      _allDoctors = doctors;
+      filteredDoctors = doctors;
+    } on DioException catch (e) {
+      final appError = DioExceptionHandler.handleDioError(e);
+      Get.snackbar('Error', appError.message);
     } catch (e) {
-      Get.snackbar("Error", "Failed to fetch doctors");
+      Get.snackbar('Error', 'Unexpected error occurred.');
     } finally {
-      isLoading.value = false;
+      isLoading = false;
+      update();
     }
   }
 
   void selectGender(int index) {
-    selectedGenderIndex.value = index;
+    selectedGenderIndex = index;
+    update();
   }
 
   void selectTimeSlot(int index) {
-    selectedTimeSlotIndex.value = index;
+    selectedTimeSlotIndex = index;
+    update();
   }
 
   void applyFilters() {
-    filteredDoctors.value = _allDoctors.where((doctor) {
-      final genderMatch = _isGenderMatch(doctor.gender);
-      final timeMatch = _isTimeSlotMatch(doctor.time);
-      return genderMatch && timeMatch;
-    }).toList();
+    filteredDoctors =
+        _allDoctors.where((doctor) {
+          final genderMatch = _isGenderMatch(doctor.gender);
+          final timeMatch = _isTimeSlotMatch(doctor.time);
+          return genderMatch && timeMatch;
+        }).toList();
+    update();
   }
 
   bool _isGenderMatch(String gender) {
     final genderLower = gender.toLowerCase();
-    switch (selectedGenderIndex.value) {
+    switch (selectedGenderIndex) {
       case 0:
         return genderLower == 'male';
       case 1:
@@ -69,10 +77,10 @@ class DoctorController extends GetxController {
   }
 
   bool _isTimeSlotMatch(String doctorTime) {
-    if (selectedTimeSlotIndex.value < 0 ||
-        selectedTimeSlotIndex.value >= timeSlots.length) {
+    if (selectedTimeSlotIndex < 0 ||
+        selectedTimeSlotIndex >= timeSlots.length) {
       return true;
     }
-    return doctorTime == timeSlots[selectedTimeSlotIndex.value];
+    return doctorTime == timeSlots[selectedTimeSlotIndex];
   }
 }
