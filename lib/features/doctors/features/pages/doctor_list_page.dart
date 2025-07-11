@@ -18,29 +18,26 @@ class DoctorListPage extends StatelessWidget {
         title: AppStrings.doctors,
         showBack: false,
         actions: [
-          IconButton(icon: const Icon(Icons.filter_list), onPressed: () {}),
-          GestureDetector(
-            child: IconButton(
-              icon: const Icon(Icons.picture_as_pdf),
-              onPressed: () => Get.dialog(DoctorFilterDialog()),
-            ),
+          IconButton(
+            icon: const Icon(Icons.filter_list),
+            onPressed: () => Get.dialog(const DoctorFilterDialog()),
           ),
         ],
       ),
-
       body: Obx(() {
         return AppLoader(
           isLoading: controller.isLoading.value,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView.separated(
-              separatorBuilder: (context, index) => Divider(),
-              itemCount: 10,
-              itemBuilder:
-                  (context, index) =>
-                      DoctorListItem(doctor: controller.doctors[index]),
-            ),
-          ),
+          child: controller.filteredDoctors.isEmpty
+              ? const Center(child: Text("No doctors found"))
+              : ListView.separated(
+                  padding: const EdgeInsets.all(8),
+                  separatorBuilder: (_, __) => const Divider(),
+                  itemCount: controller.filteredDoctors.length,
+                  itemBuilder: (context, index) {
+                    final doctor = controller.filteredDoctors[index];
+                    return DoctorListItem(doctor: doctor);
+                  },
+                ),
         );
       }),
     );

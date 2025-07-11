@@ -3,40 +3,76 @@ import 'package:healthsync/features/doctors/domain/entities/doctors.dart';
 import 'package:healthsync/features/doctors/domain/usecase/get_doctors.dart';
 
 class DoctorController extends GetxController {
-  final GetDoctors getDoctors;
+  final GetDoctors _getDoctors;
 
-  DoctorController(this.getDoctors);
+  DoctorController(this._getDoctors);
 
-  final RxList<Doctor> doctors = <Doctor>[].obs;
+  final RxList<Doctor> _allDoctors = <Doctor>[].obs;
+  final RxList<Doctor> filteredDoctors = <Doctor>[].obs;
   final RxBool isLoading = false.obs;
-  int selectedGender = 0;
-  int selectedDateIndex = 0;
+
+  final RxInt selectedGenderIndex = (-1).obs;
+  final RxInt selectedTimeSlotIndex = (-1).obs;
+
+  final List<String> timeSlots = [
+    "10:00am - 04:00pm",
+    "09:00am - 01:00pm",
+  ];
 
   @override
   void onInit() {
     super.onInit();
-    fetchDoctors();
+    _loadDoctors();
   }
 
-  void selectGender(int value) {
-    selectedGender = value;
-    update();
-  }
-
-  void selectDate(int index) {
-    selectedDateIndex = index;
-    update();
-  }
-
-  void fetchDoctors() async {
+  Future<void> _loadDoctors() async {
+    isLoading.value = true;
     try {
-      isLoading.value = true;
-      final result = await getDoctors();
-      doctors.assignAll(result);
+      final doctors = await _getDoctors();
+      _allDoctors.assignAll(doctors);
+      filteredDoctors.assignAll(doctors);
     } catch (e) {
       Get.snackbar("Error", "Failed to fetch doctors");
     } finally {
       isLoading.value = false;
     }
+  }
+
+  void selectGender(int index) {
+    selectedGenderIndex.value = index;
+  }
+
+  void selectTimeSlot(int index) {
+    selectedTimeSlotIndex.value = index;
+  }
+
+  void applyFilters() {
+    filteredDoctors.value = _allDoctors.where((doctor) {
+      final genderMatch = _isGenderMatch(doctor.gender);
+      final timeMatch = _isTimeSlotMatch(doctor.time);
+      return genderMatch && timeMatch;
+    }).toList();
+  }
+
+  bool _isGenderMatch(String gender) {
+    final genderLower = gender.toLowerCase();
+    switch (selectedGenderIndex.value) {
+      case 0:
+        return genderLower == 'male';
+      case 1:
+        return genderLower == 'female';
+      case 2:
+        return genderLower == 'non-binary';
+      default:
+        return true;
+    }
+  }
+
+  bool _isTimeSlotMatch(String doctorTime) {
+    if (selectedTimeSlotIndex.value < 0 ||
+        selectedTimeSlotIndex.value >= timeSlots.length) {
+      return true;
+    }
+    return doctorTime == timeSlots[selectedTimeSlotIndex.value];
   }
 }
