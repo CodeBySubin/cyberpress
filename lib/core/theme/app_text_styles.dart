@@ -8,4 +8,29 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     fontSize: 22,
   );
+  static const TextStyle blackBoldText = TextStyle(
+    color: AppColors.blackColor,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontSize: 17,
+  );
+  static const TextStyle smallBlacktext = TextStyle(
+    color: AppColors.blackColor,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontSize: 15,
+  );
+  static const TextStyle smallGreyText = TextStyle(
+    color: AppColors.textgrey,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontSize: 12,
+  );
+
+  static const TextStyle buttonWhiteText = TextStyle(
+    color: AppColors.whiteColor,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+    fontSize: 13,
+  );
 }

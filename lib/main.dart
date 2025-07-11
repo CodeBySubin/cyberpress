@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthsync/core/constants/app_strings.dart';
+import 'package:healthsync/core/constants/constants.dart';
 import 'package:healthsync/routes/routes.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppStrings.appTitle,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.whiteColor),
       ),
       initialRoute: AppRouteNames.doctorDetails,
       getPages: AppPages.routes,
