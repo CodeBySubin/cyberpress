@@ -13,7 +13,7 @@ class AppStrings {
   static const String about = "About";
 
   //////////////Book Appoinment//////////////////
-  static const String bookAnAppoinment = "BOOK AN APPOINTMENT";
+  static const String bookAnAppoinment = "Book An Appointment";
   static const String patientDetail = "Patient Details";
   static const String doctorDetails = "Doctor Details";
   static const String name = "Name";
@@ -27,6 +27,6 @@ class AppStrings {
 
 
   //////////////Pdf//////////////////
-  static const String pdfList = "PDF LIST";
+  static const String pdfList = "Bookings";
   static const String pdfView = "PDF VIEW";
 }

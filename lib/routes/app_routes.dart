@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:healthsync/features/appoinments/presentation/book_an_appoinments.dart';
+import 'package:healthsync/features/appoinments/presentation/pages/book_an_appoinments.dart';
 import 'package:healthsync/features/doctors/bindings/doctors_bindings.dart';
 import 'package:healthsync/features/doctors/presentation/pages/doctor_details_page.dart';
 import 'package:healthsync/features/doctors/presentation/pages/doctor_list_page.dart';
@@ -13,18 +13,19 @@ class AppPages {
       binding: DoctorBinding(),
     ),
 
-   GetPage(
+    GetPage(
       name: AppRouteNames.doctorDetails,
       page: () {
         final id = Get.parameters['id'] ?? '';
         return DoctorDetailsPage(id: id);
       },
-   ),
-  //  GetPage(
-  //     name: AppRouteNames.bookAnAppoinment,
-  //     page: () {
-  //       return BookAnAppoinment();
-  //     },
-  //  ),
+      binding: DoctorBinding(),
+    ),
+    //  GetPage(
+    //     name: AppRouteNames.bookAnAppoinment,
+    //     page: () {
+    //       return BookAnAppoinment();
+    //     },
+    //  ),
   ];
 }

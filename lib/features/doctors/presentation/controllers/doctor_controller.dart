@@ -51,6 +51,12 @@ class DoctorController extends GetxController {
     selectedTimeSlotIndex = index;
     update();
   }
+void clearFilters() {
+  selectedGenderIndex = -1;
+  selectedTimeSlotIndex = -1;
+  filteredDoctors = _allDoctors;
+  update();
+}
 
   void applyFilters() {
     filteredDoctors =

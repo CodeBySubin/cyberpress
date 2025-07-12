@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppStrings.appTitle,
       theme: ThemeData(
+        fontFamily: 'Roboto',
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.whiteColor),
       ),
       initialRoute: AppRouteNames.doctors,
