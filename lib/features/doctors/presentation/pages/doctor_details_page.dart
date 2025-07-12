@@ -5,8 +5,9 @@ import 'package:healthsync/core/theme/app_text_styles.dart';
 import 'package:healthsync/core/widgets/button_widget.dart';
 import 'package:healthsync/core/widgets/loader.dart';
 import 'package:healthsync/core/widgets/networkimage.dart';
-import 'package:healthsync/features/doctors/features/controllers/doctor_detail_conroller.dart';
-import 'package:healthsync/features/doctors/features/pages/label_value.dart';
+import 'package:healthsync/features/appoinments/presentation/book_an_appoinments.dart';
+import 'package:healthsync/features/doctors/presentation/controllers/doctor_detail_conroller.dart';
+import 'package:healthsync/features/doctors/presentation/pages/label_value.dart';
 
 class DoctorDetailsPage extends StatelessWidget {
   final String id;
@@ -17,17 +18,17 @@ class DoctorDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<DoctorDetailController>(
-        initState: (_) {},
-        didChangeDependencies: (state) => state.controller!.loadDoctorById(id),
+        init: Get.find<DoctorDetailController>(),
+        initState: (_) => Get.find<DoctorDetailController>().loadDoctorById(id),
         builder: (controller) {
           return AppLoader(
             isLoading: controller.isLoading,
             child: Stack(
               children: [
-                SizedBox(
+                NetworkImageWidget(
+                  url: controller.doctor!.image,
                   height: 300,
                   width: double.infinity,
-                  child: networkImageWidget(controller.doctor!.image),
                 ),
 
                 Positioned(
@@ -110,7 +111,13 @@ class DoctorDetailsPage extends StatelessWidget {
                             textStyle: AppTextStyles.buttonWhiteText,
                             size: Size(double.infinity, 50),
                             text: AppStrings.bookAnAppoinment,
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(
+                                () => BookAnAppoinment(
+                                  doctor: controller.doctor!,
+                                ),
+                              );
+                            },
                             borderRadius: 0,
                           ),
                         ],

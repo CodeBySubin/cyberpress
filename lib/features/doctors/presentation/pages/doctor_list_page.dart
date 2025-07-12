@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthsync/core/constants/constants.dart';
 import 'package:healthsync/core/widgets/widgets.dart';
-import 'package:healthsync/features/doctors/features/controllers/doctor_controller.dart';
-import 'package:healthsync/features/doctors/features/widgets/doctor_filter.dart';
-import 'package:healthsync/features/doctors/features/widgets/doctor_list_item.dart';
+import 'package:healthsync/features/doctors/presentation/controllers/doctor_controller.dart';
+import 'package:healthsync/features/doctors/presentation/widgets/doctor_filter.dart';
+import 'package:healthsync/features/doctors/presentation/widgets/doctor_list_item.dart';
+
 
 class DoctorListPage extends StatelessWidget {
   const DoctorListPage({super.key});

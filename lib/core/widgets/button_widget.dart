@@ -19,7 +19,7 @@ class TextButtonWidget extends StatelessWidget {
     required this.onPressed,
     this.color = AppColors.blackColor,
     this.size,
-    this.borderRadius = 8.0,
+    this.borderRadius = 0.0,
     this.padding,
     this.fontSize = 16.0,
     this.fontWeight = FontWeight.bold,

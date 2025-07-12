@@ -39,4 +39,11 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     fontSize: 13,
   );
+
+    static const TextStyle formFieldText = TextStyle(
+    color: AppColors.grey,
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.bold,
+    fontSize: 15,
+  );
 }

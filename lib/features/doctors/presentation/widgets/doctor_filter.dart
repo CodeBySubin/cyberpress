@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:healthsync/core/constants/constants.dart';
 import 'package:healthsync/core/theme/app_text_styles.dart';
 import 'package:healthsync/core/widgets/button_widget.dart';
-import 'package:healthsync/features/doctors/features/controllers/doctor_controller.dart';
+import 'package:healthsync/features/doctors/presentation/controllers/doctor_controller.dart';
 
 class DoctorFilterDialog extends StatelessWidget {
   const DoctorFilterDialog({super.key});
@@ -12,7 +12,6 @@ class DoctorFilterDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-
     return GetBuilder<DoctorController>(
       builder: (controller) {
         return AlertDialog(

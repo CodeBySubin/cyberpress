@@ -25,7 +25,7 @@ class DoctorListItem extends StatelessWidget {
           child: Row(
             spacing: 20,
             children: [
-              networkImageWidget(width: 95, height: 95, doctor.image),
+              NetworkImageWidget(width: 95, height: 95, url: doctor.image),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
